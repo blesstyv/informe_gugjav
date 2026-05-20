@@ -97,7 +97,8 @@
 .markdown-body p,
 .markdown-body blockquote,
 .markdown-body ul,
-.markdown-body ol {
+.markdown-body ol,
+.markdown-body table {
   margin: 0;
   line-height: 1.75;
 }
@@ -120,6 +121,23 @@
 .markdown-body a {
   color: var(--accent);
   text-decoration: underline;
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+}
+
+.markdown-body th {
+  background: rgba(170, 59, 255, 0.08);
+  text-align: left;
 }
 
 .markdown-body pre {

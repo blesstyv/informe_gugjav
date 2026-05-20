@@ -9,11 +9,49 @@ function inlineFormat(text) {
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
 }
 
+function buildTable(rows) {
+  if (!rows.length) return ''
+  const parsed = rows.map((row) =>
+    row
+      .trim()
+      .replace(/^\||\|$/g, '')
+      .split('|')
+      .map((cell) => cell.trim())
+  )
+
+  const hasSeparator = parsed[1] && parsed[1].every((cell) => /^:?-+:?$/.test(cell))
+  const headers = hasSeparator ? parsed[0] : parsed[0]
+  const body = hasSeparator ? parsed.slice(2) : parsed.slice(1)
+
+  let html = '<table><thead><tr>'
+  headers.forEach((cell) => {
+    html += `<th>${inlineFormat(cell)}</th>`
+  })
+  html += '</tr></thead>'
+
+  if (body.length) {
+    html += '<tbody>'
+    body.forEach((row) => {
+      if (!row.some((cell) => cell.length)) return
+      html += '<tr>'
+      row.forEach((cell) => {
+        html += `<td>${inlineFormat(cell)}</td>`
+      })
+      html += '</tr>'
+    })
+    html += '</tbody>'
+  }
+  html += '</table>'
+  return html
+}
+
 function markdownToHtml(raw) {
   const lines = raw.split(/\r?\n/)
   let html = ''
   let buffer = ''
   let listOpen = false
+  let tableRows = []
+  let inCode = false
 
   const flushParagraph = () => {
     if (buffer.trim()) {
@@ -29,11 +67,34 @@ function markdownToHtml(raw) {
     }
   }
 
+  const flushTable = () => {
+    if (tableRows.length) {
+      html += buildTable(tableRows)
+      tableRows = []
+    }
+  }
+
   lines.forEach((line) => {
     const trimmed = line.trim()
+
+    if (trimmed.startsWith('```')) {
+      flushParagraph()
+      closeList()
+      flushTable()
+      inCode = !inCode
+      html += inCode ? '<pre><code>' : '</code></pre>'
+      return
+    }
+
+    if (inCode) {
+      html += `${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}\n`
+      return
+    }
+
     if (!trimmed) {
       flushParagraph()
       closeList()
+      flushTable()
       return
     }
 
@@ -41,6 +102,7 @@ function markdownToHtml(raw) {
     if (headingMatch) {
       flushParagraph()
       closeList()
+      flushTable()
       const level = Math.min(3, headingMatch[1].length)
       html += `<h${level}>${inlineFormat(headingMatch[2].trim())}</h${level}>`
       return
@@ -49,6 +111,7 @@ function markdownToHtml(raw) {
     const listMatch = trimmed.match(/^[-*+]\s+(.*)$/)
     if (listMatch) {
       flushParagraph()
+      flushTable()
       if (!listOpen) {
         listOpen = true
         html += '<ul>'
@@ -57,22 +120,10 @@ function markdownToHtml(raw) {
       return
     }
 
-    const codeFenceMatch = trimmed.match(/^```\s*(.*)$/)
-    if (codeFenceMatch) {
+    if (trimmed.includes('|')) {
       flushParagraph()
       closeList()
-      html += '<pre><code>'
-      return
-    }
-
-    if (trimmed.startsWith('>')) {
-      flushParagraph()
-      closeList()
-      html += `<blockquote>${inlineFormat(trimmed.slice(1).trim())}</blockquote>`
-      return
-    }
-
-    if (trimmed.startsWith('```')) {
+      tableRows.push(trimmed)
       return
     }
 
@@ -85,6 +136,7 @@ function markdownToHtml(raw) {
 
   flushParagraph()
   closeList()
+  flushTable()
   return html
 }
 
@@ -102,8 +154,8 @@ function App() {
           <h1>Página de informe basada en los archivos Markdown</h1>
           <p>
             Esta página muestra automáticamente el contenido disponible de la carpeta{' '}
-            <strong>docs_gugjav</strong>. Los documentos vacíos aparecen como secciones
-            reservadas para completar.
+            <strong>docs_gugjav</strong>. Cada archivo Markdown se convierte y se despliega como
+            sección independiente.
           </p>
         </div>
         <aside className="toc">
