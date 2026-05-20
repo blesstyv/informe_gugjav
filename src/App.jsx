@@ -1,121 +1,142 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import { docs } from './docsData'
+
+function inlineFormat(text) {
+  return text
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
+}
+
+function markdownToHtml(raw) {
+  const lines = raw.split(/\r?\n/)
+  let html = ''
+  let buffer = ''
+  let listOpen = false
+
+  const flushParagraph = () => {
+    if (buffer.trim()) {
+      html += `<p>${inlineFormat(buffer.trim())}</p>`
+      buffer = ''
+    }
+  }
+
+  const closeList = () => {
+    if (listOpen) {
+      html += '</ul>'
+      listOpen = false
+    }
+  }
+
+  lines.forEach((line) => {
+    const trimmed = line.trim()
+    if (!trimmed) {
+      flushParagraph()
+      closeList()
+      return
+    }
+
+    const headingMatch = trimmed.match(/^(#{1,3})\s+(.*)$/)
+    if (headingMatch) {
+      flushParagraph()
+      closeList()
+      const level = Math.min(3, headingMatch[1].length)
+      html += `<h${level}>${inlineFormat(headingMatch[2].trim())}</h${level}>`
+      return
+    }
+
+    const listMatch = trimmed.match(/^[-*+]\s+(.*)$/)
+    if (listMatch) {
+      flushParagraph()
+      if (!listOpen) {
+        listOpen = true
+        html += '<ul>'
+      }
+      html += `<li>${inlineFormat(listMatch[1].trim())}</li>`
+      return
+    }
+
+    const codeFenceMatch = trimmed.match(/^```\s*(.*)$/)
+    if (codeFenceMatch) {
+      flushParagraph()
+      closeList()
+      html += '<pre><code>'
+      return
+    }
+
+    if (trimmed.startsWith('>')) {
+      flushParagraph()
+      closeList()
+      html += `<blockquote>${inlineFormat(trimmed.slice(1).trim())}</blockquote>`
+      return
+    }
+
+    if (trimmed.startsWith('```')) {
+      return
+    }
+
+    if (buffer) {
+      buffer += ' ' + trimmed
+    } else {
+      buffer = trimmed
+    }
+  })
+
+  flushParagraph()
+  closeList()
+  return html
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const docsWithHtml = docs.map((doc) => ({
+    ...doc,
+    html: doc.content.trim() ? markdownToHtml(doc.content) : '',
+  }))
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+    <main className="page" id="top">
+      <header className="page-header">
         <div>
-          <h1>Get started</h1>
+          <span className="tag">Informe GUGJAV</span>
+          <h1>Página de informe basada en los archivos Markdown</h1>
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Esta página muestra automáticamente el contenido disponible de la carpeta{' '}
+            <strong>docs_gugjav</strong>. Los documentos vacíos aparecen como secciones
+            reservadas para completar.
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
+        <aside className="toc">
+          <h2>Contenido</h2>
           <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
+            {docsWithHtml.map((doc) => (
+              <li key={doc.id}>
+                <a href={`#${doc.id}`}>{doc.title}</a>
+              </li>
+            ))}
           </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        </aside>
+      </header>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <section className="content">
+        {docsWithHtml.map((doc) => (
+          <article key={doc.id} id={doc.id} className="doc-section">
+            <h2>{doc.title}</h2>
+            {doc.html ? (
+              <div
+                className="markdown-body"
+                dangerouslySetInnerHTML={{ __html: doc.html }}
+              />
+            ) : (
+              <p className="empty">Este documento está vacío o no contiene texto.</p>
+            )}
+            <a className="top-link" href="#top">
+              Volver arriba
+            </a>
+          </article>
+        ))}
+      </section>
+    </main>
   )
 }
 
