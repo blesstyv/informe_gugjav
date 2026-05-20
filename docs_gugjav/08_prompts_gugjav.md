@@ -8,5 +8,3 @@ Actúa como un experto en ciberseguridad y análisis de incidentes informáticos
 3. **Impacto Operativo y de Negocios:** ¿Qué servicios se vieron afectados (sucursales, canales digitales, cajeros automáticos) y cuánto tiempo tomó la recuperación? Aclara si los fondos de los clientes se vieron comprometidos.
 4. **Respuesta al Incidente y Mitigación:** ¿Qué medidas de contención inmediatas tomó el banco (aislamiento de sistemas, apagado de plataformas) y cómo colaboraron con el CSIRT de Chile?
 5. **Lecciones Aprendidas:** ¿Qué cambió en el panorama de la ciberseguridad bancaria en Chile tras este evento y qué buenas prácticas se extraen de este caso?
-
-Evita tecnicismos excesivos sin explicar, pero mantén un nivel de detalle técnico profesional.
