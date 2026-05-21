@@ -1,23 +1,30 @@
 export const docs = [
   {
-    id: '01_resument_gugjav',
-    filename: '01_resument_gugjav.md',
+    id: '01_resumen_gugjav',
+    filename: '01_resumen_gugjav.md',
     title: 'Resumen ejecutivo del caso',
-    content: `Resumen ejecutivo del caso
-Caso seleccionado
-Fraude informático contra BancoEstado (2024).
+    content: `# 01. Resumen ejecutivo del caso
 
-¿Qué ocurrió?
-Durante 2024 se investigó un fraude informático que afectó a BancoEstado y que involucró la manipulación de sistemas internos para desviar aproximadamente $6.100 millones de pesos chilenos.
+## Caso seleccionado
+- Fraude informático contra BancoEstado (2024).
+- Investigado como un ataque de ransomware con base en acceso no autorizado y manipulación de sistemas internos.
 
-Las investigaciones preliminares indicaron la participación de:
-exfuncionarios, proveedores tecnológicos, y personas con conocimiento interno de los sistemas bancarios.
+## Qué ocurrió
+Durante 2024 se detectó un incidente que afectó a la infraestructura tecnológica de BancoEstado y desvió recursos por aproximadamente $6.100 millones de pesos chilenos.
 
-A diferencia de un ataque externo tradicional, este caso corresponde principalmente a una amenaza interna (“insider threat”), donde se habrían utilizado accesos legítimos y conocimiento operativo para alterar procesos financieros y ejecutar transferencias irregulares.
+Las investigaciones preliminares indicaron la posible participación de:
+- exfuncionarios,
+- proveedores tecnológicos,
+- y personas con conocimiento interno de los sistemas bancarios.
 
-Impacto
-Pérdidas económicas millonarias. Riesgo reputacional para la institución financiera. Investigación penal por delitos informáticos y económicos. Revisión de controles de ciberseguridad y auditoría interna.`
-  },
+A diferencia de un ataque externo tradicional, este caso corresponde a una amenaza interna (“insider threat”), donde se habrían utilizado accesos legítimos y conocimiento operativo para alterar procesos financieros y ejecutar transferencias irregulares.
+
+## Impacto
+- Pérdidas económicas millonarias.
+- Riesgo reputacional significativo.
+- Investigación penal por delitos informáticos y económicos.
+- Revisión de controles de ciberseguridad y auditoría interna.
+`  },
   {
     id: '02_marco_gugjav',
     filename: '02_marco_gugjav.md',
@@ -247,8 +254,8 @@ Para proteger los datos personales, BancoEstado y cualquier entidad financiera d
 
 ## Conclusión
 
-Aunque no se confirme una filtración pública de datos personales, el ataque de ransomware representó un riesgo importante para la seguridad de la información. La Ley N° 19.628 permite analizar el deber de proteger los datos personales tratados por BancoEstado y la importancia de respetar los derechos ARCO de los titulares.`
-  },
+Aunque no se confirme una filtración pública de datos personales, el ataque de ransomware representó un riesgo importante para la seguridad de la información. La Ley N° 19.628 permite analizar el deber de proteger los datos personales tratados por BancoEstado y la importancia de respetar los derechos ARCO de los titulares.
+`  },
   {
     id: '07_conclusiones_gugjav',
     filename: '07_conclusiones_gugjav.md',

@@ -1,8 +1,32 @@
 import './App.css'
-import { docs } from './docsData'
+
+const rawDocs = import.meta.globEager('../docs_gugjav/*.md?raw')
+
+const docs = Object.entries(rawDocs)
+  .map(([path, raw]) => {
+    const filename = path.split('/').pop()
+    const id = filename.replace(/\.md$/i, '')
+    // Vite may return the raw string directly or as the module's default export
+    const rawContent = raw && typeof raw === 'object' && 'default' in raw ? raw.default : raw
+    const content = String(rawContent ?? '').trim()
+    const title = content.match(/^#\s+(.+)/m)?.[1]?.trim() || id
+
+    return {
+      id,
+      filename,
+      title,
+      content,
+    }
+  })
+  .sort((a, b) => a.filename.localeCompare(b.filename))
+
+function escapeHtml(text) {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
 
 function inlineFormat(text) {
-  return text
+  const safeText = escapeHtml(text)
+  return safeText
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.+?)\*/g, '<em>$1</em>')
@@ -16,7 +40,7 @@ function buildTable(rows) {
       .trim()
       .replace(/^\||\|$/g, '')
       .split('|')
-      .map((cell) => cell.trim())
+      .map((cell) => cell.trim()),
   )
 
   const hasSeparator = parsed[1] && parsed[1].every((cell) => /^:?-+:?$/.test(cell))
@@ -41,6 +65,7 @@ function buildTable(rows) {
     })
     html += '</tbody>'
   }
+
   html += '</table>'
   return html
 }
@@ -50,6 +75,7 @@ function markdownToHtml(raw) {
   let html = ''
   let buffer = ''
   let listOpen = false
+  let listType = ''
   let tableRows = []
   let inCode = false
 
@@ -62,8 +88,9 @@ function markdownToHtml(raw) {
 
   const closeList = () => {
     if (listOpen) {
-      html += '</ul>'
+      html += `</${listType}>`
       listOpen = false
+      listType = ''
     }
   }
 
@@ -87,7 +114,7 @@ function markdownToHtml(raw) {
     }
 
     if (inCode) {
-      html += `${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}\n`
+      html += `${escapeHtml(line)}\n`
       return
     }
 
@@ -108,15 +135,28 @@ function markdownToHtml(raw) {
       return
     }
 
-    const listMatch = trimmed.match(/^[-*+]\s+(.*)$/)
-    if (listMatch) {
+    const blockquoteMatch = trimmed.match(/^>\s+(.*)$/)
+    if (blockquoteMatch) {
+      flushParagraph()
+      closeList()
+      flushTable()
+      html += `<blockquote>${inlineFormat(blockquoteMatch[1].trim())}</blockquote>`
+      return
+    }
+
+    const unorderedMatch = trimmed.match(/^[-*+]\s+(.*)$/)
+    const orderedMatch = trimmed.match(/^\d+\.\s+(.*)$/)
+    if (unorderedMatch || orderedMatch) {
       flushParagraph()
       flushTable()
-      if (!listOpen) {
+      const currentType = orderedMatch ? 'ol' : 'ul'
+      if (!listOpen || listType !== currentType) {
+        closeList()
+        listType = currentType
         listOpen = true
-        html += '<ul>'
+        html += `<${currentType}>`
       }
-      html += `<li>${inlineFormat(listMatch[1].trim())}</li>`
+      html += `<li>${inlineFormat((unorderedMatch || orderedMatch)[1].trim())}</li>`
       return
     }
 
@@ -127,11 +167,7 @@ function markdownToHtml(raw) {
       return
     }
 
-    if (buffer) {
-      buffer += ' ' + trimmed
-    } else {
-      buffer = trimmed
-    }
+    buffer += buffer ? ` ${trimmed}` : trimmed
   })
 
   flushParagraph()
@@ -143,52 +179,78 @@ function markdownToHtml(raw) {
 function App() {
   const docsWithHtml = docs.map((doc) => ({
     ...doc,
-    html: doc.content.trim() ? markdownToHtml(doc.content) : '',
+    html: doc.content ? markdownToHtml(doc.content) : '',
   }))
 
+  const totalSections = docsWithHtml.length
+  const totalWords = docsWithHtml.reduce(
+    (sum, doc) => sum + (doc.content.match(/\b\w+\b/g)?.length || 0),
+    0,
+  )
+
   return (
-    <main className="page" id="top">
+    <div className="page" id="top">
       <header className="page-header">
-        <div>
+        <div className="title-block">
           <span className="tag">Informe GUGJAV</span>
-          <h1>Página de informe basada en los archivos Markdown</h1>
-          <p>
-            Esta página muestra automáticamente el contenido disponible de la carpeta{' '}
-            <strong>docs_gugjav</strong>. Cada archivo Markdown se convierte y se despliega como
-            sección independiente.
+          <h1>Informe BancoEstado 2020</h1>
+          <p className="subtitle">
+            Un informe completo con la información disponible en <strong>docs_gugjav</strong>.
+            Navega por cada sección para revisar el análisis legal, regulatorio, de delitos, datos
+            personales y conclusiones.
           </p>
+          <div className="stats-row">
+            <div>{totalSections} secciones</div>
+            <div>{totalWords} palabras</div>
+          </div>
         </div>
-        <aside className="toc">
-          <h2>Contenido</h2>
-          <ul>
-            {docsWithHtml.map((doc) => (
-              <li key={doc.id}>
-                <a href={`#${doc.id}`}>{doc.title}</a>
-              </li>
-            ))}
-          </ul>
-        </aside>
       </header>
 
-      <section className="content">
-        {docsWithHtml.map((doc) => (
-          <article key={doc.id} id={doc.id} className="doc-section">
-            <h2>{doc.title}</h2>
-            {doc.html ? (
-              <div
-                className="markdown-body"
-                dangerouslySetInnerHTML={{ __html: doc.html }}
-              />
-            ) : (
-              <p className="empty">Este documento está vacío o no contiene texto.</p>
-            )}
-            <a className="top-link" href="#top">
-              Volver arriba
-            </a>
-          </article>
-        ))}
-      </section>
-    </main>
+      <div className="layout">
+        <aside className="sidebar">
+          <div className="toc">
+            <div className="toc-title">Índice</div>
+            <nav>
+              <ul>
+                {docsWithHtml.map((doc, index) => (
+                  <li key={doc.id}>
+                    <a href={`#${doc.id}`}>
+                      <span>{index + 1}</span>
+                      {doc.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </aside>
+
+        <main className="docs">
+          {docsWithHtml.length === 0 ? (
+            <div className="empty-state">No se encontró contenido en docs_gugjav.</div>
+          ) : (
+            docsWithHtml.map((doc) => (
+              <article key={doc.id} id={doc.id} className="doc-card">
+                <div className="doc-header">
+                  <div className="doc-number">{doc.filename.replace('.md', '')}</div>
+                  <h2>{doc.title}</h2>
+                </div>
+                <div className="markdown-body" dangerouslySetInnerHTML={{ __html: doc.html }} />
+                <div className="doc-actions">
+                  <a className="top-link" href="#top">
+                    Volver arriba
+                  </a>
+                </div>
+              </article>
+            ))
+          )}
+        </main>
+      </div>
+
+      <footer className="page-footer">
+        <p>Contenido generado desde Markdown local de la carpeta docs_gugjav.</p>
+      </footer>
+    </div>
   )
 }
 

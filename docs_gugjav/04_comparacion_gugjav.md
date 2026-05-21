@@ -1,90 +1,47 @@
-# 04. Comparación de marcos regulatorios aplicables al caso BancoEstado 2020
-
-## Introducción
-
-El ataque informático sufrido por BancoEstado en septiembre de 2020 debe analizarse desde más de un marco regulatorio, porque afectó a una institución bancaria, involucró sistemas informáticos, generó impacto operacional, activó coordinación con autoridades financieras y puso en riesgo la disponibilidad de servicios relevantes para millones de usuarios.
-
-Este archivo compara marcos nacionales e internacionales relacionados con el caso. La comparación considera normas chilenas de delitos informáticos, protección de datos personales, ciberseguridad e instituciones financieras, junto con marcos internacionales estudiados en clase, especialmente GDPR, HIPAA y PCI DSS.
-
-La finalidad de esta comparación es identificar diferencias y similitudes entre los marcos regulatorios, considerando alcance, jurisdicción, sujeto regulado, tipo de dato o activo protegido, sanciones o consecuencias, y aplicabilidad concreta al caso BancoEstado 2020.
-
----
-
-## Hechos del caso utilizados para la comparación
-
-Según BancoEstado, el incidente fue provocado por terceros, un virus encriptó información de algunos computadores, se bajaron sistemas para proteger las cuentas de los clientes y se vieron afectados sistemas operativos de cerca de 12.000 computadores. El banco también informó que no se afectaron cuentas ni fondos de clientes.
-
-El Banco Central de Chile informó que, frente al incidente reportado por BancoEstado, mantuvo coordinación con la Comisión para el Mercado Financiero, monitoreó la continuidad operacional del banco afectado y observó el funcionamiento de los sistemas de pago de alto valor.
-
-Estos antecedentes permiten comparar marcos regulatorios desde cuatro dimensiones principales:
-
-1. Delitos informáticos.
-2. Protección de datos personales.
-3. Continuidad operacional y ciberseguridad bancaria.
-4. Estándares internacionales de protección de datos y medios de pago.
-
----
+# 04. Comparación de marcos regulatorios nacionales e internacionales por industria
 
 ## Tabla comparativa de marcos regulatorios
 
-| Marco regulatorio | Industria o ámbito | Jurisdicción / alcance | Sujeto regulado | Dato, sistema o activo protegido | Sanción o consecuencia | Aplicabilidad al caso BancoEstado 2020 |
+| Marco regulatorio | Industria o sector | Alcance principal | Jurisdicción | Sujeto regulado | Sanción, consecuencia o exigencia | Aplicabilidad al caso BancoEstado 2020 |
 |---|---|---|---|---|---|---|
-| Ley N° 19.223 sobre delitos informáticos | Delitos informáticos en Chile, vigente al momento del ataque | Chile | Personas que ejecutan conductas informáticas ilícitas | Sistemas de tratamiento de información y datos contenidos en ellos | Penas penales por destruir, inutilizar, interferir, acceder, alterar, dañar o revelar información | Era la ley penal aplicable en 2020. Permitía analizar el sabotaje informático, la obstaculización de sistemas y la alteración de datos, aunque era limitada frente a un ransomware moderno. |
-| Ley N° 21.459 sobre delitos informáticos | Delitos informáticos modernos | Chile, alineada con el Convenio de Budapest | Atacantes informáticos y personas naturales o jurídicas vinculadas a ciberdelitos | Sistemas informáticos, datos informáticos, evidencia digital y herramientas de ataque | Penas penales y multas según el delito cometido | Aunque fue posterior al ataque, se usa en este proyecto como marco actual para analizar acceso ilícito, daño a sistemas, daño a datos, fraude informático y abuso de dispositivos. |
-| Ley N° 19.628 sobre protección de la vida privada | Protección de datos personales | Chile | Responsables de bancos de datos personales, organismos públicos y privados | Datos personales de personas naturales identificadas o identificables | Responsabilidad civil, acciones del titular y sanciones limitadas según el régimen aplicable | Aplica porque BancoEstado administra datos personales y financieros de clientes. No se confirma públicamente una filtración, pero el incidente generó riesgo sobre la confidencialidad, integridad y disponibilidad de información personal. |
-| Normativa CMF sobre seguridad de la información y ciberseguridad bancaria | Sector financiero y bancario | Chile | Bancos e instituciones fiscalizadas por la Comisión para el Mercado Financiero | Continuidad operacional, infraestructura tecnológica, gestión de riesgos y seguridad de la información | Fiscalización, exigencias regulatorias, planes de acción y eventuales sanciones administrativas | Aplica directamente porque BancoEstado es una entidad bancaria. El incidente obligó a coordinar medidas con autoridades y revisar la continuidad operacional del sistema financiero. |
-| Ley N° 21.663 Marco de Ciberseguridad | Ciberseguridad nacional, servicios esenciales e infraestructura crítica | Chile | Organismos públicos, prestadores de servicios esenciales y operadores de importancia vital | Servicios esenciales, infraestructura crítica, sistemas y redes relevantes para el país | Obligaciones de gestión de riesgos, reporte de incidentes y sanciones administrativas | Es posterior al caso, pero permite analizar cómo debería tratarse actualmente un incidente similar en banca, servicios financieros y medios de pago, sectores expresamente relevantes para la continuidad del país. |
-| Convenio de Budapest sobre ciberdelincuencia | Cooperación internacional contra ciberdelitos | Internacional | Estados parte, autoridades penales y organismos de cooperación | Evidencia digital, sistemas informáticos y persecución transfronteriza del delito | No funciona como sanción directa al atacante, sino como marco de cooperación penal internacional | Es relevante porque los ataques de ransomware suelen tener dimensión transnacional. Permite comprender la necesidad de cooperación internacional para investigar servidores, infraestructura, autores y evidencia digital fuera de Chile. |
-| GDPR | Protección de datos personales | Unión Europea, con alcance extraterritorial en ciertos casos | Responsables y encargados que tratan datos de personas ubicadas en la Unión Europea | Datos personales, derechos de los titulares y transferencias internacionales | Multas administrativas que pueden llegar hasta 20 millones de euros o el 4% de la facturación anual global | No se confirma que el caso BancoEstado haya involucrado datos de personas en la Unión Europea. Se utiliza como comparación internacional porque exige notificación de brechas, responsabilidad demostrable y medidas fuertes de protección de datos. |
-| HIPAA | Protección de información de salud | Estados Unidos | Entidades cubiertas y socios de negocio que manejan información de salud protegida | PHI y ePHI, es decir, información médica identificable en formato físico o electrónico | Sanciones civiles, medidas correctivas y posibles consecuencias penales en ciertos casos | No aplica directamente al caso BancoEstado porque no se trata de una institución de salud. Se incluye como comparación por industria, para mostrar cómo cambia la regulación cuando el activo protegido son datos de salud. |
-| PCI DSS | Seguridad de datos de tarjetas de pago | Global, de naturaleza contractual en la industria de pagos | Comercios, procesadores, emisores, adquirentes y proveedores que almacenan, procesan o transmiten datos de tarjetas | Datos del titular de tarjeta y datos sensibles de autenticación | Consecuencias contractuales, exigencias de cumplimiento, auditorías y posible pérdida de capacidad de procesar tarjetas | Es relevante como estándar técnico porque BancoEstado participa en el ecosistema financiero y de medios de pago. No se afirma que hayan sido comprometidos datos de tarjetas; se usa para evaluar controles de seguridad, monitoreo, segmentación y protección de datos de pago. |
+| Ley N° 19.223 sobre delitos informáticos | Delitos informáticos | Regulaba conductas informáticas ilícitas como destrucción, inutilización, obstaculización, acceso indebido, daño o revelación de información contenida en sistemas. | Chile | Personas que cometen conductas informáticas ilícitas. | Establecía penas para las figuras penales relativas a la informática vigentes antes de la Ley N° 21.459. | Era la norma penal chilena vigente al momento del ataque de 2020. Permitía analizar el sabotaje informático y la afectación de sistemas, aunque resultaba limitada frente a un ransomware moderno. |
+| Ley N° 21.459 sobre delitos informáticos | Delitos informáticos modernos | Actualiza la legislación chilena en ciberdelitos y tipifica conductas como ataque a sistemas, acceso ilícito, ataque a datos, fraude informático y abuso de dispositivos. | Chile, alineada con el Convenio de Budapest. | Atacantes informáticos y personas involucradas en delitos informáticos. | Contempla penas y multas según la gravedad del delito informático cometido. | Aunque es posterior al caso, permite analizar actualmente el ransomware con mayor precisión jurídica, especialmente por la afectación de sistemas, cifrado de datos y uso de malware. |
+| Ley N° 19.628 sobre protección de la vida privada | Protección de datos personales | Regula el tratamiento de datos personales en registros o bancos de datos por organismos públicos y particulares. | Chile | Responsables de bancos de datos personales y quienes tratan datos personales. | Contempla acciones del titular, responsabilidad por daños y multas limitadas en ciertos casos. | Aplica porque BancoEstado administra datos personales y financieros de clientes. No se confirma una filtración pública de datos personales, pero el incidente generó riesgo sobre la confidencialidad, integridad y disponibilidad de la información. |
+| Normativa CMF, Capítulo 20-10 sobre gestión de seguridad de la información y ciberseguridad | Banca y sistema financiero | Establece lineamientos para gestión de seguridad de la información, ciberseguridad, riesgos tecnológicos, continuidad operacional y respuesta ante incidentes. | Chile | Bancos e instituciones financieras fiscalizadas por la Comisión para el Mercado Financiero. | Exigencias regulatorias, supervisión, eventuales planes de acción y sanciones administrativas según incumplimientos. | Aplica directamente porque BancoEstado es una entidad bancaria. El incidente afectó la operación de sucursales y exigió coordinación con autoridades financieras. |
+| Ley N° 21.663, Ley Marco de Ciberseguridad | Servicios esenciales e infraestructura crítica | Establece obligaciones de ciberseguridad para prestadores de servicios esenciales y operadores de importancia vital. Incluye banca, servicios financieros y medios de pago dentro de los servicios esenciales. | Chile | Instituciones que prestan servicios esenciales y operadores de importancia vital. | Obligaciones de gestión de riesgos, reporte de incidentes, implementación de medidas de ciberseguridad y posibles sanciones administrativas. | Es posterior al ataque, pero sirve para analizar cómo debería gestionarse actualmente un incidente similar en una entidad financiera relevante para el país. |
+| Convenio de Budapest sobre ciberdelincuencia | Cooperación internacional contra ciberdelitos | Armoniza legislaciones penales, facilita investigación de delitos informáticos y cooperación internacional sobre evidencia digital. | Internacional, para Estados parte. | Estados, autoridades judiciales y organismos encargados de la persecución penal. | No sanciona directamente al atacante, pero permite cooperación penal, preservación de evidencia y asistencia internacional. | Es relevante porque los ataques de ransomware suelen tener dimensión transnacional: autores, servidores, infraestructura o evidencia pueden encontrarse fuera de Chile. |
+| GDPR, Reglamento General de Protección de Datos | Protección de datos personales | Regula el tratamiento de datos personales de personas ubicadas en la Unión Europea, incluso con alcance extraterritorial en ciertos casos. | Unión Europea, con alcance extraterritorial cuando se ofrecen bienes o servicios a personas en la UE o se monitorea su comportamiento. | Responsables y encargados del tratamiento de datos personales. | Multas administrativas que pueden llegar a 20 millones de euros o al 4% de la facturación anual global, según la infracción. También exige notificación de brechas en un plazo general de 72 horas cuando corresponde. | No se confirma que el caso BancoEstado haya involucrado datos de personas ubicadas en la Unión Europea. Se usa como comparación internacional porque tiene estándares más exigentes de privacidad, notificación de brechas y responsabilidad demostrable. |
+| HIPAA | Salud | Protege la información de salud identificable, especialmente la información electrónica de salud protegida, conocida como ePHI. | Estados Unidos. | Entidades cubiertas, como prestadores de salud, planes de salud, clearinghouses y sus business associates. | Exige salvaguardas administrativas, físicas y técnicas. Puede generar sanciones civiles, medidas correctivas y consecuencias penales en ciertos casos. | No aplica directamente a BancoEstado porque el caso pertenece al sector financiero, no al sector salud. Se incluye como comparación por industria para mostrar cómo cambia el marco regulatorio cuando el activo protegido es información médica. |
+| PCI DSS | Industria de medios de pago | Estándar técnico y operativo para proteger datos del titular de tarjeta y datos de autenticación sensibles. | Global, de naturaleza contractual dentro de la industria de pagos. | Comercios, procesadores, adquirentes, emisores y proveedores que almacenan, procesan o transmiten datos de tarjetas. | Exige cumplimiento técnico-operativo, auditorías, controles de seguridad y puede generar consecuencias contractuales si no se cumple. | Es relevante como referencia técnica porque BancoEstado participa en el ecosistema financiero y de medios de pago. No se debe afirmar que datos de tarjetas fueron comprometidos, pero sí permite evaluar controles como segmentación, monitoreo, cifrado y control de acceso. |
 
 ---
 
-## Comparación por ejes principales
+## Comparación resumida por ejes
 
-| Eje de comparación | Ley 21.459 | Ley 19.628 | Ley 21.663 | GDPR | HIPAA | PCI DSS |
-|---|---|---|---|---|---|---|
-| Finalidad principal | Sancionar ciberdelitos | Proteger datos personales | Fortalecer la ciberseguridad nacional | Proteger datos personales en la Unión Europea | Proteger información de salud | Proteger datos de tarjetas de pago |
-| Tipo de obligación | Penal | Legal y civil | Administrativa y regulatoria | Legal | Legal | Contractual y técnica |
-| Sujeto regulado | Atacantes y responsables de delitos informáticos | Responsables de tratamiento de datos | Servicios esenciales y operadores críticos | Responsables y encargados de tratamiento | Entidades cubiertas y socios de negocio | Entidades que almacenan, procesan o transmiten datos de tarjetas |
-| Dato o activo protegido | Sistemas y datos informáticos | Datos personales | Servicios esenciales, redes y sistemas críticos | Datos personales | Datos de salud protegidos | Datos de tarjetas |
-| Jurisdicción | Chile | Chile | Chile | Unión Europea y alcance extraterritorial | Estados Unidos | Global en la industria de pagos |
-| Relación con BancoEstado | Permite tipificar actualmente el ransomware | Evalúa el riesgo sobre datos de clientes | Sirve para analizar continuidad de servicios financieros esenciales | Referencia internacional de privacidad | Comparación con sector salud, no aplicable directamente | Referencia técnica para seguridad de pagos |
-
----
-
-## Análisis comparativo aplicado al caso
-
-La Ley N° 19.223 era la norma vigente al momento del ataque, pero tenía un alcance limitado frente a ataques modernos como el ransomware. Por esa razón, aunque permitía analizar sabotaje informático y daño a sistemas, no entregaba una estructura tan precisa como la Ley N° 21.459.
-
-La Ley N° 21.459 permite una lectura más actual del caso, porque distingue delitos como ataque a la integridad de sistemas, acceso ilícito, ataque a la integridad de datos, fraude informático y abuso de dispositivos. Esta ley es más adecuada para describir jurídicamente un ataque de ransomware, ya que este tipo de incidente puede afectar simultáneamente sistemas, datos, continuidad operacional y seguridad institucional.
-
-La Ley N° 19.628 se relaciona con el caso porque BancoEstado administra datos personales de millones de clientes. Aunque BancoEstado informó que las cuentas y fondos no fueron afectados, el incidente igual debe analizarse como un riesgo para la seguridad de la información, especialmente en términos de confidencialidad, integridad y disponibilidad.
-
-La normativa de la CMF y la Ley N° 21.663 tienen un enfoque más institucional y preventivo. Mientras la CMF se orienta al control del riesgo tecnológico en entidades financieras, la Ley N° 21.663 permite considerar la banca, los servicios financieros y los medios de pago dentro de una lógica de servicios esenciales o infraestructura relevante para el país.
-
-En cuanto a los marcos internacionales, GDPR funciona como referencia fuerte de protección de datos personales, especialmente por su enfoque de responsabilidad demostrable y notificación de brechas. HIPAA no aplica directamente a BancoEstado, pero permite comparar cómo se regula la protección de datos en el sector salud. PCI DSS es más cercano al caso porque se relaciona con la seguridad de datos de tarjetas y medios de pago, aunque no se debe afirmar que datos de tarjetas hayan sido comprometidos sin evidencia oficial.
+| Eje de comparación | Ley N° 21.459 | Ley N° 19.628 | Normativa CMF 20-10 | Ley N° 21.663 | GDPR | HIPAA | PCI DSS |
+|---|---|---|---|---|---|---|---|
+| Sector principal | Delitos informáticos | Datos personales | Banca y sistema financiero | Servicios esenciales y ciberseguridad nacional | Privacidad y datos personales | Salud | Medios de pago |
+| Finalidad | Sancionar ciberdelitos | Proteger datos personales | Gestionar riesgo tecnológico y ciberseguridad bancaria | Proteger servicios esenciales y operadores críticos | Proteger datos personales en la UE | Proteger información de salud | Proteger datos de tarjetas |
+| Jurisdicción | Chile | Chile | Chile | Chile | Unión Europea y alcance extraterritorial | Estados Unidos | Global contractual |
+| Sujeto regulado | Atacantes o responsables de delitos informáticos | Responsables de bancos de datos personales | Bancos e instituciones fiscalizadas | Prestadores de servicios esenciales y operadores de importancia vital | Responsables y encargados de tratamiento | Entidades cubiertas y socios de negocio | Entidades que procesan, almacenan o transmiten datos de tarjetas |
+| Sanción o consecuencia | Penas y multas | Responsabilidad civil y multas limitadas | Supervisión, exigencias regulatorias y sanciones administrativas | Obligaciones, reportes y sanciones administrativas | Multas administrativas elevadas | Sanciones civiles, correctivas y eventualmente penales | Consecuencias contractuales, auditorías y pérdida de capacidad de procesamiento |
+| Relación con BancoEstado 2020 | Permite tipificar actualmente el ransomware | Analiza riesgo sobre datos de clientes | Aplica directamente por tratarse de un banco | Sirve para analizar cómo se gestionaría hoy un incidente similar | Comparación internacional en privacidad | No aplica directamente; comparación sector salud | Referencia técnica para medios de pago |
 
 ---
 
-## Aplicabilidad directa, indirecta y comparativa
+## Análisis aplicado al caso
 
-| Nivel de aplicabilidad | Marcos incluidos | Justificación |
-|---|---|---|
-| Aplicabilidad directa al caso | Ley N° 19.223, Ley N° 19.628, normativa CMF | Eran marcos nacionales relevantes al momento del ataque y aplican por tratarse de un banco chileno afectado por un incidente informático. |
-| Aplicabilidad actual para análisis académico | Ley N° 21.459 y Ley N° 21.663 | Son posteriores al ataque, pero permiten analizar cómo se abordaría hoy un caso similar bajo el marco moderno chileno. |
-| Aplicabilidad internacional o comparativa | Convenio de Budapest, GDPR, HIPAA, PCI DSS | Permiten comparar estándares internacionales sobre ciberdelitos, privacidad, salud y medios de pago. Algunos no aplican directamente al caso, pero ayudan a evaluar buenas prácticas y diferencias regulatorias. |
+La Ley N° 19.223 era la norma penal aplicable al momento del ataque, porque el incidente ocurrió en 2020. Sin embargo, su alcance era limitado para enfrentar fenómenos modernos como el ransomware, ya que no regulaba de forma expresa figuras como abuso de dispositivos, malware o cooperación internacional avanzada.
 
----
+La Ley N° 21.459 permite una lectura más actual del caso. Esta norma resulta útil para comprender que un ransomware puede involucrar varias conductas al mismo tiempo: acceso ilícito, afectación de sistemas, alteración de datos, posible finalidad económica y uso de herramientas maliciosas.
 
-## Conclusión
+La Ley N° 19.628 se incorpora porque BancoEstado trata datos personales y financieros de sus clientes. Aunque no se puede afirmar una filtración confirmada de datos personales, sí corresponde analizar el riesgo generado por el incidente sobre la información que administra el banco.
 
-La comparación de marcos regulatorios demuestra que el ataque a BancoEstado no debe analizarse desde una sola norma. La Ley N° 19.223 permite entender la respuesta penal disponible en 2020, mientras que la Ley N° 21.459 permite una tipificación moderna del ransomware. La Ley N° 19.628 aporta el análisis de datos personales, y la normativa CMF junto con la Ley N° 21.663 permiten comprender el deber de continuidad operacional y ciberseguridad en entidades financieras.
+La normativa CMF es uno de los marcos más directamente aplicables, porque BancoEstado pertenece al sistema bancario. Un ataque que obliga a bajar sistemas, afecta computadores institucionales y genera cierre o disminución de atención en sucursales debe revisarse desde la gestión de seguridad de la información, ciberseguridad, continuidad operacional y riesgo tecnológico.
 
-Los marcos internacionales complementan el análisis. El Convenio de Budapest permite abordar la cooperación internacional frente a ciberdelitos; GDPR entrega un estándar avanzado de protección de datos; HIPAA permite comparar el tratamiento de información sensible en salud; y PCI DSS aporta controles técnicos relevantes para la industria de pagos.
+La Ley N° 21.663 es posterior al caso, pero permite comprender cómo debería abordarse hoy un incidente similar. Esta ley considera como servicios esenciales actividades relacionadas con banca, servicios financieros y medios de pago, por lo que un ataque a una entidad bancaria estatal tendría relevancia para la continuidad de servicios esenciales.
 
-En consecuencia, el caso BancoEstado 2020 debe abordarse como un incidente complejo que involucra delitos informáticos, regulación bancaria, gestión de riesgos, protección de datos, continuidad operacional y estándares internacionales de seguridad.
+A nivel internacional, el Convenio de Budapest es relevante porque el ransomware normalmente no se limita a un solo país. Los autores, servidores, infraestructura de comando y control o evidencia digital pueden encontrarse en distintas jurisdicciones, por lo que la cooperación internacional es clave.
 
----
+GDPR, HIPAA y PCI DSS se incluyen como comparación por industria. GDPR representa un estándar fuerte en privacidad y protección de datos personales; HIPAA muestra cómo se protegen datos sensibles de salud en Estados Unidos; y PCI DSS permite comparar exigencias técnicas aplicables a datos de tarjetas y sistemas de pago.
 
