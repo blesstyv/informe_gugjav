@@ -1,4 +1,4 @@
-# 01. Resumen ejecutivo del caso BancoEstado 2020
+# Resumen ejecutivo del caso BancoEstado 2020
 
 ## Caso analizado
 

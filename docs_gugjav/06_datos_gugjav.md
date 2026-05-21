@@ -1,4 +1,4 @@
-# 06. Tratamiento de datos personales según la Ley N° 19.628
+# Tratamiento de datos personales según la Ley N° 19.628
 
 ## Introducción
 

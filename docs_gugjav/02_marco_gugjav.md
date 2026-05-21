@@ -1,4 +1,4 @@
-# 02. Marco normativo nacional aplicado al caso BancoEstado 2020
+# Marco normativo nacional aplicado al caso BancoEstado 2020
 
 ## 1. Ley N° 21.459 sobre Delitos Informáticos
 

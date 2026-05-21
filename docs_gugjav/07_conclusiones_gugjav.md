@@ -1,4 +1,4 @@
-# 07. Conclusiones y recomendaciones finales
+# Conclusiones y recomendaciones finales
 
 ## Conclusión general
 
