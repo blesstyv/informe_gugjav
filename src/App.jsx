@@ -1,14 +1,13 @@
 import './App.css'
 
-const rawDocs = import.meta.globEager('../docs_gugjav/*.md?raw')
+const rawDocs = import.meta.glob('../docs_gugjav/*.md', { eager: true, query: '?raw' })
 
 const docs = Object.entries(rawDocs)
   .map(([path, raw]) => {
     const filename = path.split('/').pop()
     const id = filename.replace(/\.md$/i, '')
-    // Vite may return the raw string directly or as the module's default export
-    const rawContent = raw && typeof raw === 'object' && 'default' in raw ? raw.default : raw
-    const content = String(rawContent ?? '').trim()
+    const rawContent = raw?.default ?? raw ?? ''
+    const content = typeof rawContent === 'string' ? rawContent.trim() : ''
     const title = content.match(/^#\s+(.+)/m)?.[1]?.trim() || id
 
     return {
@@ -206,46 +205,39 @@ function App() {
         </div>
       </header>
 
-      <div className="layout">
-        <aside className="sidebar">
-          <div className="toc">
-            <div className="toc-title">Índice</div>
-            <nav>
-              <ul>
-                {docsWithHtml.map((doc, index) => (
-                  <li key={doc.id}>
-                    <a href={`#${doc.id}`}>
-                      <span>{index + 1}</span>
-                      {doc.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        </aside>
+      <nav className="toc-header">
+        <ul className="toc-list">
+          {docsWithHtml.map((doc, index) => (
+            <li key={doc.id}>
+              <a href={`#${doc.id}`} className="toc-item">
+                <span className="toc-number">{index + 1}</span>
+                <span className="toc-text">{doc.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-        <main className="docs">
-          {docsWithHtml.length === 0 ? (
-            <div className="empty-state">No se encontró contenido en docs_gugjav.</div>
-          ) : (
-            docsWithHtml.map((doc) => (
-              <article key={doc.id} id={doc.id} className="doc-card">
-                <div className="doc-header">
-                  <div className="doc-number">{doc.filename.replace('.md', '')}</div>
-                  <h2>{doc.title}</h2>
-                </div>
-                <div className="markdown-body" dangerouslySetInnerHTML={{ __html: doc.html }} />
-                <div className="doc-actions">
-                  <a className="top-link" href="#top">
-                    Volver arriba
-                  </a>
-                </div>
-              </article>
-            ))
-          )}
-        </main>
-      </div>
+      <main className="docs-main">
+        {docsWithHtml.length === 0 ? (
+          <div className="empty-state">No se encontró contenido en docs_gugjav.</div>
+        ) : (
+          docsWithHtml.map((doc) => (
+            <article key={doc.id} id={doc.id} className="doc-card">
+              <div className="doc-header">
+                <div className="doc-number">{doc.filename.replace('.md', '')}</div>
+                <h2>{doc.title}</h2>
+              </div>
+              <div className="markdown-body" dangerouslySetInnerHTML={{ __html: doc.html }} />
+              <div className="doc-actions">
+                <a className="top-link" href="#top">
+                  Volver arriba
+                </a>
+              </div>
+            </article>
+          ))
+        )}
+      </main>
 
       <footer className="page-footer">
         <p>Contenido generado desde Markdown local de la carpeta docs_gugjav.</p>

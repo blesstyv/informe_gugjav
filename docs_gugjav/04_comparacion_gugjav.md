@@ -1,4 +1,4 @@
-# 04. Comparación de marcos regulatorios nacionales e internacionales por industria
+# Comparación de marcos regulatorios nacionales e internacionales por industria
 
 ## Tabla comparativa de marcos regulatorios
 
